@@ -1,0 +1,108 @@
+.container {
+    display: flex;
+    justify-content: space-between;
+  }
+  
+  i {
+    padding: 10px;
+    border-radius: 10px;
+  }
+  
+  i:hover {
+    cursor: pointer;
+  }
+  
+  .container > div {
+    background-color: #435c70;
+    padding: 40px;
+  }
+  
+  .tablebody {
+    height: 320px;
+    overflow-y: scroll;
+    width: 100% !important;
+  }
+  
+  .addproductmodal {
+    width: 57%;
+  }
+  
+  .container div:first-child {
+    width: 57%;
+  }
+  
+  .tablebody input[type="checkbox"] {
+    border-radius: 50%;
+  }
+  .roundedCheckbox input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+  }
+  
+  .checkmark {
+    position: relative;
+    border: 2px solid #ccc;
+    border-radius: 50%;
+    padding: 0px 8px;
+  }
+  
+  .roundedCheckbox input:checked + .checkmark {
+    background-color: #2196f3;
+    border-color: #2196f3;
+  }
+  .checkmark::after {
+    content: "";
+    position: absolute;
+    display: none;
+    left: 5px;
+    top: 1px;
+    width: 5px;
+    height: 10px;
+    border: solid white;
+    border-width: 0 2px 2px 0;
+    transform: rotate(45deg);
+  }
+  
+  .roundedCheckbox input:checked + .checkmark::after {
+    display: block;
+  }
+  
+  @media (max-width: 767px) {
+    .container {
+      display: block;
+      width: 100%;
+    }
+  
+    .container div:first-child {
+      width: 81%;
+      margin-bottom: 30px;
+    }
+  
+    .container > div {
+      padding: 20px;
+      font-size: 14px;
+    }
+  
+    i {
+      text-align: center;
+      padding: 8px;
+    }
+  
+    .addproductmodal {
+      width: 100%;
+    }
+  
+    .roundedCheckbox .checkmark {
+      padding: 0px 6px;
+    }
+  
+    .checkmark::after {
+      left: 4px;
+      top: 1px;
+      width: 4px;
+      height: 8px;
+      border-width: 0 1.5px 1.5px 0;
+    }
+  }
+  

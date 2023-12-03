@@ -186,6 +186,11 @@ const renderPageNumbers = pageNumbers.map((number) => (
                         id={item.id}
                         onClick={deleteHandler}
                       ></i>
+                      <i
+                        className="far fa-edit tm-product-edit-icon"
+                        id={item.id}
+                        
+                      ></i>
                     </td>
                   </tr>
                   ))

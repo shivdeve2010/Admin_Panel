@@ -161,7 +161,7 @@ const renderPageNumbers = pageNumbers.map((number) => (
                   <th> Name</th>
                   <th>Email</th>
                   <th>Role</th>
-                  
+                  <th>Action</th>
                   <th></th>
                 </tr>
               </thead>
@@ -209,7 +209,13 @@ const renderPageNumbers = pageNumbers.map((number) => (
                         id={item.id}
                         onClick={deleteHandler}
                       ></i>
+                       <i
+                        className="far fa-edit tm-product-edit-icon"
+                        id={item.id}
+                        
+                      ></i>
                     </td>
+                  
                   </tr>
                 ))
                  )

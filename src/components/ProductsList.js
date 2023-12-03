@@ -15,6 +15,8 @@ const ProductsList = ({ hideCategory }) => {
   const [currentPage, setCurrentPage] = useState(1);
 const [itemsPerPage] = useState(10); // Change the number of items per page as needed
 
+const [searchQuery, setSearchQuery] = useState('');
+const [filteredItems, setFilteredItems] = useState([]);
 
   useEffect(() => {
     setProductlist(
@@ -112,6 +114,19 @@ const [itemsPerPage] = useState(10); // Change the number of items per page as n
     e.preventDefault();
   };
 
+  const handleSearch = (e) => {
+    const query = e.target.value;
+    setSearchQuery(query);
+
+    const filtered = productlist.filter((item) =>
+      item.name.toLowerCase().includes(query.toLowerCase()) ||
+      item.id.toLowerCase().includes(query.toLowerCase()) ||
+      item.email.toLowerCase().includes(query.toLowerCase()) ||
+      item.role.toLowerCase().includes(query.toLowerCase())
+    );
+    setFilteredItems(filtered);
+  };
+
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
   const currentItems = productlist.slice(indexOfFirstItem, indexOfLastItem);
@@ -131,6 +146,7 @@ const renderPageNumbers = pageNumbers.map((number) => (
 ));
   return (
     <>
+      
       {!modal && (
         <div>
           <div
@@ -150,7 +166,32 @@ const renderPageNumbers = pageNumbers.map((number) => (
                 </tr>
               </thead>
               <tbody>
-                {currentItems.map((item, i) => (
+                {   
+                   filteredItems.length > 0 ?
+                   (filteredItems.map((item, i) => (
+                    <tr key={i}>
+                    <td id={i}>
+                      <label className={styles.roundedCheckbox}>
+                        <input type="checkbox" onChange={checkboxHandler} />
+                        <span className={styles.checkmark}></span>
+                      </label>
+                    </td>
+                    <td>{item.id}</td>
+                    <td>{item.name}</td>
+                    <td>{item.email}</td>
+                    <td>{item.role}</td>
+                    <td>
+                      <i
+                        className="far fa-trash-alt tm-product-delete-icon"
+                        id={item.id}
+                        onClick={deleteHandler}
+                      ></i>
+                    </td>
+                  </tr>
+                  ))
+                   ):
+                 (
+                currentItems.map((item, i) => (
                   <tr key={i}>
                     <td id={i}>
                       <label className={styles.roundedCheckbox}>
@@ -170,7 +211,10 @@ const renderPageNumbers = pageNumbers.map((number) => (
                       ></i>
                     </td>
                   </tr>
-                ))}
+                ))
+                 )
+                 }
+                         
               </tbody>
             </table>
           </div>
@@ -223,9 +267,18 @@ const renderPageNumbers = pageNumbers.map((number) => (
           </form>
         </div>
       )}
+      <div className="feature">
       <div className="pagination">
          PAGE NO - 
           {renderPageNumbers}
+        </div>
+        <input
+        type="text"
+        className="search-bar"
+        placeholder="Search..."
+        value={searchQuery}
+        onChange={handleSearch}
+        />
         </div>
     </>
   );

@@ -24,4 +24,18 @@
     color: #fff;
     border-color: #3498db;
   }
+  .search-bar {
+    width: 300px;
+    padding: 8px;
+    border: 1px solid #0a0101;
+    border-radius: 4px;
+    margin-bottom: 10px;
+    font-size: 14px;
+    height : 20px
+    
+    
+  }
+  .feature {
+    display: block;
+  }
   

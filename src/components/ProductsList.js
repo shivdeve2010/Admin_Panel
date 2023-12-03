@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import styles from "./Products.module.css";
 import "./ProductSlider.css";
+import './styles.css'; 
 
 const ProductsList = ({ hideCategory }) => {
   const [productlist, setProductlist] = useState([]);
@@ -10,6 +11,10 @@ const ProductsList = ({ hideCategory }) => {
   const [name, setName] = useState("");
   const [role, setRole] = useState("");
   const [email, setEmail] = useState("");
+
+  const [currentPage, setCurrentPage] = useState(1);
+const [itemsPerPage] = useState(10); // Change the number of items per page as needed
+
 
   useEffect(() => {
     setProductlist(
@@ -107,6 +112,23 @@ const ProductsList = ({ hideCategory }) => {
     e.preventDefault();
   };
 
+  const indexOfLastItem = currentPage * itemsPerPage;
+  const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+  const currentItems = productlist.slice(indexOfFirstItem, indexOfLastItem);
+  const pageNumbers = [];
+for (let i = 1; i <= Math.ceil(productlist.length / itemsPerPage); i++) {
+  pageNumbers.push(i);
+}
+const renderPageNumbers = pageNumbers.map((number) => (
+  <button
+    key={number}
+    onClick={() => setCurrentPage(number)}
+    className={currentPage === number ? 'active' : ''} 
+    
+  >
+    {number}
+  </button>
+));
   return (
     <>
       {!modal && (
@@ -128,7 +150,7 @@ const ProductsList = ({ hideCategory }) => {
                 </tr>
               </thead>
               <tbody>
-                {productlist.map((item, i) => (
+                {currentItems.map((item, i) => (
                   <tr key={i}>
                     <td id={i}>
                       <label className={styles.roundedCheckbox}>
@@ -158,8 +180,10 @@ const ProductsList = ({ hideCategory }) => {
           <button className="btn" onClick={selectedDeleteHandler} type="reset">
             Delete Selected Employee
           </button>
+          
         </div>
       )}
+      
       {modal && (
         <div className={styles.addproductmodal}>
           <h2>Add Employee</h2>
@@ -199,6 +223,10 @@ const ProductsList = ({ hideCategory }) => {
           </form>
         </div>
       )}
+      <div className="pagination">
+         PAGE NO - 
+          {renderPageNumbers}
+        </div>
     </>
   );
 };
